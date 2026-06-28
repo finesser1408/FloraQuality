@@ -6,7 +6,10 @@
         <div>
             <p class="text-emerald-100 text-sm font-medium mb-1">Good {{ now()->hour < 12 ? 'morning' : (now()->hour < 17 ? 'afternoon' : 'evening') }},</p>
             <h1 class="text-3xl font-extrabold text-white tracking-tight">{{ Auth::user()->name }} 👋</h1>
-            <p class="text-emerald-100/80 text-sm mt-2">{{ now()->format('l, d F Y') }} — Here's your quality overview.</p>
+            <div class="flex items-center gap-2 mt-2">
+                <p class="text-emerald-100/80 text-sm">{{ now()->format('l, d F Y') }}</p>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/20 text-white font-bold tracking-widest uppercase">Live System v1.0</span>
+            </div>
         </div>
         <div class="flex flex-wrap items-center gap-3 flex-shrink-0">
             @if(Auth::user()->isSuperAdmin())
