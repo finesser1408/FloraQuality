@@ -3,16 +3,31 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
+        web: __DIR__ . "/../routes/web.php",
+        commands: __DIR__ . "/../routes/console.php",
+        health: "/up",
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->appendToGroup('web', \App\Http\Middleware\EnforcePasswordChange::class);
+        // Trust all proxies so Railway's HTTPS termination is recognised correctly
+        $middleware->trustProxies(
+            at: "*",
+            headers: Request::HEADER_X_FORWARDED_FOR |
+                Request::HEADER_X_FORWARDED_HOST |
+                Request::HEADER_X_FORWARDED_PORT |
+                Request::HEADER_X_FORWARDED_PROTO |
+                Request::HEADER_X_FORWARDED_AWS_ELB,
+        );
+
+        $middleware->appendToGroup(
+            "web",
+            \App\Http\Middleware\EnforcePasswordChange::class,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+    ->create();
