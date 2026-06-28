@@ -8,11 +8,25 @@
             <h1 class="text-3xl font-extrabold text-white tracking-tight">{{ Auth::user()->name }} 👋</h1>
             <p class="text-emerald-100/80 text-sm mt-2">{{ now()->format('l, d F Y') }} — Here's your quality overview.</p>
         </div>
-        <a href="{{ route('checklists.create') }}" class="btn flex-shrink-0"
-           style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.25);backdrop-filter:blur(8px);">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-            New Inspection
-        </a>
+        <div class="flex flex-wrap items-center gap-3 flex-shrink-0">
+            @if(Auth::user()->isSuperAdmin())
+                <a href="{{ route('users.index') }}" class="btn"
+                   style="background:rgba(255,255,255,0.08);color:#fff;border:1.5px solid rgba(255,255,255,0.15);backdrop-filter:blur(8px);">
+                    Manage Users
+                </a>
+            @endif
+            @if(Auth::user()->isAdmin())
+                <a href="{{ route('reports.index') }}" class="btn"
+                   style="background:rgba(255,255,255,0.08);color:#fff;border:1.5px solid rgba(255,255,255,0.15);backdrop-filter:blur(8px);">
+                    View Reports
+                </a>
+            @endif
+            <a href="{{ route('checklists.create') }}" class="btn"
+               style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.25);backdrop-filter:blur(8px);">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                New Inspection
+            </a>
+        </div>
     </div>
 
     {{-- KPI Cards --}}

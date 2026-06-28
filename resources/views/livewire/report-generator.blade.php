@@ -28,13 +28,15 @@
                 <input type="date" wire:model.live="dateTo" class="form-input">
             </div>
 
-            <div class="flex items-end">
-                <button wire:click="exportCsv" wire:loading.attr="disabled" class="btn btn-primary w-full flex items-center justify-center gap-2">
-                    <span wire:loading.remove wire:target="exportCsv">📥 Export CSV</span>
+            <div class="flex items-end gap-2">
+                <button wire:click="exportCsv" wire:loading.attr="disabled" class="btn btn-secondary flex-1 flex items-center justify-center gap-2">
+                    <span wire:loading.remove wire:target="exportCsv">📥 CSV</span>
                     <span wire:loading wire:target="exportCsv" class="flex items-center gap-2">
                         <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-                        Generating…
                     </span>
+                </button>
+                <button onclick="window.print()" class="btn btn-primary flex-1 flex items-center justify-center gap-2">
+                    <span>🖨️ Print</span>
                 </button>
             </div>
         </div>

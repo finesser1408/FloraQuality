@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AuditService;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -50,6 +51,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        AuditService::log('deleted', 'User', $user->id, "User {$user->name} deleted their account.");
 
         Auth::logout();
 

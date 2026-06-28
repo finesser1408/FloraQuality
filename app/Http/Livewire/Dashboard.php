@@ -48,15 +48,23 @@ class Dashboard extends Component
      */
     public function getMonthlyStatsProperty(): array
     {
-        $months = [];
+        $sixMonthsAgo = now()->subMonths(5)->startOfMonth();
+
+        $counts = FlowerChecklist::selectRaw("DATE_FORMAT(check_date, '%m-%Y') as month_year, count(*) as total")
+            ->where('check_date', '>=', $sixMonthsAgo)
+            ->groupBy('month_year')
+            ->get()
+            ->pluck('total', 'month_year');
+
+        $stats = [];
         for ($i = 5; $i >= 0; $i--) {
             $date = now()->subMonths($i);
+            $key = $date->format('m-Y');
             $label = $date->format('M Y');
-            $months[$label] = FlowerChecklist::whereYear('check_date', $date->year)
-                ->whereMonth('check_date', $date->month)
-                ->count();
+            $stats[$label] = $counts[$key] ?? 0;
         }
-        return $months;
+
+        return $stats;
     }
 
     public function render()

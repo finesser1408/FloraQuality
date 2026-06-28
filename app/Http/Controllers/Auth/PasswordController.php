@@ -21,12 +21,18 @@ class PasswordController extends Controller
         ]);
 
         $user = $request->user();
+        $wasRequiredToChange = $user->require_password_change;
+
         $user->update([
             'password' => Hash::make($validated['password']),
             'require_password_change' => false,
         ]);
 
         \App\Services\AuditService::log('updated', 'User', $user->id, "User {$user->name} changed their password.");
+
+        if ($wasRequiredToChange) {
+            return redirect()->route('dashboard')->with('success', 'Password updated successfully. You now have full access to the system.');
+        }
 
         return back()->with('status', 'password-updated');
     }

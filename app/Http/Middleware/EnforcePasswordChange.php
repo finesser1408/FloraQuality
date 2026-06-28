@@ -18,10 +18,11 @@ class EnforcePasswordChange
 
             if ($user->require_password_change) {
                 // Allow profile edit, update and logout requests
-                if (!$request->routeIs('profile.edit') && 
-                    !$request->routeIs('profile.update') && 
+                if (!$request->routeIs('profile.edit') &&
+                    !$request->routeIs('profile.update') &&
+                    !$request->routeIs('password.update') &&
                     !$request->routeIs('logout')) {
-                    
+
                     return redirect()->route('profile.edit')
                         ->with('error', 'For security, you must change your default password before accessing other parts of the system.');
                 }

@@ -6,6 +6,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Log In — {{ config('app.name', 'FloraQuality') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        if (localStorage.getItem('flora_dark') === 'true' ||
+            (!('flora_dark' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </head>
 <body class="h-full antialiased gradient-bg flex items-center justify-center p-4">
 
