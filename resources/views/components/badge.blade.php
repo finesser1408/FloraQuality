@@ -1,0 +1,13 @@
+@props(['condition'])
+@php
+    $map = [
+        'good'    => ['class' => 'badge-good',    'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>',                              'label' => 'Good'],
+        'average' => ['class' => 'badge-average', 'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/>',                                    'label' => 'Average'],
+        'bad'     => ['class' => 'badge-bad',     'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>',                       'label' => 'Bad'],
+    ];
+    $info = $map[$condition] ?? ['class' => 'badge', 'icon' => '', 'label' => ucfirst($condition)];
+@endphp
+<span class="badge {{ $info['class'] }}">
+    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">{!! $info['icon'] !!}</svg>
+    {{ $info['label'] }}
+</span>
