@@ -15,6 +15,10 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone_number',
+        'status',
+        'last_login_at',
+        'require_password_change',
     ];
 
     protected $hidden = [
@@ -23,8 +27,10 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password'          => 'hashed',
+        'email_verified_at'       => 'datetime',
+        'password'                => 'hashed',
+        'last_login_at'           => 'datetime',
+        'require_password_change' => 'boolean',
     ];
 
     // ─── Relationships ─────────────────────────────────────────────────────────

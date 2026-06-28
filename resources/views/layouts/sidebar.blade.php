@@ -7,7 +7,7 @@
              style="background:linear-gradient(135deg,#059669,#34d399);">
             F
         </div>
-        <span class="nav-label font-bold text-base tracking-tight" style="color:var(--text-primary);">FloraQuality</span>
+        <span class="nav-label font-bold text-base tracking-tight" style="color:var(--text-primary);">floraQuality</span>
     </div>
 
     <!-- Navigation -->

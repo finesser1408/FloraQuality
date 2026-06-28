@@ -15,7 +15,7 @@
     <!-- Breadcrumb -->
     <div class="flex-1 min-w-0">
         <nav class="flex items-center gap-1.5 text-sm" style="color:var(--text-tertiary);">
-            <span class="font-medium" style="color:var(--text-primary);">FloraQuality</span>
+            <span class="font-medium" style="color:var(--text-primary);">floraQuality</span>
             @if(!request()->routeIs('dashboard'))
                 <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 <span class="font-medium truncate" style="color:var(--text-secondary);">

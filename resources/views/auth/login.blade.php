@@ -22,7 +22,7 @@
                  style="background:linear-gradient(135deg,#059669,#34d399);">
                 F
             </div>
-            <h1 class="text-2xl font-extrabold tracking-tight" style="color:var(--text-primary);">FloraQuality Portal</h1>
+            <h1 class="text-2xl font-extrabold tracking-tight" style="color:var(--text-primary);">floraQuality Portal</h1>
             <p class="text-sm mt-1" style="color:var(--text-tertiary);">Sign in to manage checklist records and audits.</p>
         </div>
 
@@ -86,7 +86,7 @@
 
     <!-- Info Footer -->
     <div class="text-center mt-6">
-        <p class="text-xs" style="color:var(--text-tertiary);">FloraQuality Inspection Portal. All rights reserved.</p>
+        <p class="text-xs" style="color:var(--text-tertiary);">floraQuality Inspection Portal. All rights reserved.</p>
     </div>
 
 </div>

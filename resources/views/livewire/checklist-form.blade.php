@@ -27,7 +27,7 @@
     @endif
 
     {{-- Form Card --}}
-    <div class="card overflow-hidden">
+    <form wire:submit.prevent="save" class="card overflow-hidden">
 
         {{-- Section 1: Basic Details --}}
         <div class="p-6 border-b" style="border-color:var(--surface-border);">
@@ -127,7 +127,7 @@
             </button>
             <div class="flex gap-3">
                 <a href="{{ route('checklists.index') }}" class="btn btn-secondary">Cancel</a>
-                <button type="button" wire:click="save" wire:loading.attr="disabled" class="btn btn-primary">
+                <button type="submit" wire:loading.attr="disabled" class="btn btn-primary">
                     <span wire:loading.remove wire:target="save">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                         {{ $this->checklistId ? 'Save Changes' : 'Create Inspection' }}
@@ -139,7 +139,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script>
