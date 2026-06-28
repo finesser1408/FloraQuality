@@ -3,45 +3,53 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     * Seed the application's database.
+     * Seed the application's database with default demo users.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Super Administrator
+        User::updateOrCreate(
+            ["email" => "superadmin@floraquality.com"],
+            [
+                "name" => "Super Admin",
+                "password" => Hash::make("Admin@1234"),
+                "role" => "super_admin",
+                "status" => "active",
+                "email_verified_at" => now(),
+                "require_password_change" => false,
+            ],
+        );
 
-        // Initial Super Admin (Forces password change on first login)
-        User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'test@example.com',
-            'role' => 'super_admin',
-            'status' => 'active',
-            'require_password_change' => true,
-        ]);
+        // Administrator
+        User::updateOrCreate(
+            ["email" => "admin@floraquality.com"],
+            [
+                "name" => "Admin User",
+                "password" => Hash::make("Admin@1234"),
+                "role" => "admin",
+                "status" => "active",
+                "email_verified_at" => now(),
+                "require_password_change" => false,
+            ],
+        );
 
-        // Default Admin User
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'role' => 'admin',
-            'status' => 'active',
-            'require_password_change' => false,
-        ]);
-
-        // Default Staff / Inspector User
-        User::factory()->create([
-            'name' => 'Staff User',
-            'email' => 'staff@example.com',
-            'role' => 'staff',
-            'status' => 'active',
-            'require_password_change' => false,
-        ]);
+        // Staff / Inspector
+        User::updateOrCreate(
+            ["email" => "staff@floraquality.com"],
+            [
+                "name" => "Staff User",
+                "password" => Hash::make("Staff@1234"),
+                "role" => "staff",
+                "status" => "active",
+                "email_verified_at" => now(),
+                "require_password_change" => false,
+            ],
+        );
     }
 }
