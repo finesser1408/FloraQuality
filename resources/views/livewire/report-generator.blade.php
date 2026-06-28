@@ -1,4 +1,18 @@
 <div class="space-y-6">
+    {{-- Print Header (hidden on screen, visible only when printing) --}}
+    <div class="hidden print:block mb-6 pb-4" style="border-bottom:2px solid #003580;">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-extrabold" style="color:#003580;">PRAZ Flower Checklist System</h1>
+                <p class="text-sm mt-0.5" style="color:#4a5568;">Plant &amp; Resource Assurance of Zimbabwe — Inspection Report</p>
+            </div>
+            <div class="text-right text-xs" style="color:#718096;">
+                <p>Printed: {{ now()->format('d M Y H:i') }}</p>
+                <p>Report Type: {{ ucfirst(str_replace('_', ' ', $reportType)) }}</p>
+            </div>
+        </div>
+    </div>
+
     {{-- Page Header --}}
     <x-page-header title="Inspection Reports" description="Configure, preview, and export checklist data."></x-page-header>
 
@@ -30,13 +44,17 @@
 
             <div class="flex items-end gap-2">
                 <button wire:click="exportCsv" wire:loading.attr="disabled" class="btn btn-secondary flex-1 flex items-center justify-center gap-2">
-                    <span wire:loading.remove wire:target="exportCsv">📥 CSV</span>
+                    <span wire:loading.remove wire:target="exportCsv">
+                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        CSV
+                    </span>
                     <span wire:loading wire:target="exportCsv" class="flex items-center gap-2">
                         <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
                     </span>
                 </button>
                 <button onclick="window.print()" class="btn btn-primary flex-1 flex items-center justify-center gap-2">
-                    <span>🖨️ Print</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    <span>Print</span>
                 </button>
             </div>
         </div>
@@ -69,7 +87,7 @@
                     @foreach ($reportData as $row)
                         <tr>
                             <td class="font-semibold capitalize" style="color:var(--text-primary);">{{ $row->condition }}</td>
-                            <td class="font-bold text-slate-700 dark:text-slate-300">{{ $row->total }}</td>
+                            <td class="font-bold" style="color:var(--text-secondary);">{{ $row->total }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -86,7 +104,7 @@
                     @foreach ($reportData as $row)
                         <tr>
                             <td class="font-semibold" style="color:var(--text-primary);">{{ $row->user->name ?? 'Unknown' }}</td>
-                            <td class="font-bold text-slate-700 dark:text-slate-300">{{ $row->total }}</td>
+                            <td class="font-bold" style="color:var(--text-secondary);">{{ $row->total }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -112,13 +130,13 @@
                                 <td>
                                     <div class="flex items-center gap-2">
                                         <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white"
-                                             style="background:linear-gradient(135deg,#059669,#0891b2);">
+                                             style="background:linear-gradient(135deg,#003580,#1a52a0);">
                                             {{ strtoupper(substr($row->user->name ?? 'U', 0, 1)) }}
                                         </div>
                                         <span class="text-sm" style="color:var(--text-secondary);">{{ $row->user->name ?? 'N/A' }}</span>
                                     </div>
                                 </td>
-                                <td class="text-sm text-slate-500 max-w-xs truncate">{{ $row->remarks ?? '—' }}</td>
+                                <td class="text-sm max-w-xs truncate" style="color:var(--text-tertiary);">{{ $row->remarks ?? '—' }}</td>
                             </tr>
                         @endforeach
                     </tbody>

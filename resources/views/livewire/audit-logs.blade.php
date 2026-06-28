@@ -57,7 +57,7 @@
                                     @if($log->user)
                                         <div class="flex items-center gap-2">
                                             <div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
-                                                 style="background:linear-gradient(135deg,#059669,#0891b2);">
+                                                 style="background:linear-gradient(135deg,#003580,#1a52a0);">
                                                 {{ strtoupper(substr($log->user->name, 0, 1)) }}
                                             </div>
                                             <span class="text-sm font-semibold" style="color:var(--text-primary);">{{ $log->user->name }}</span>
@@ -69,11 +69,11 @@
                                 <td>
                                     @php
                                         $actionColors = [
-                                            'login' => 'background:rgba(5,150,105,0.1);color:#059669;',
-                                            'logout' => 'background:rgba(71,85,105,0.1);color:#475569;',
-                                            'created' => 'background:rgba(56,189,248,0.1);color:#0284c7;',
-                                            'updated' => 'background:rgba(245,158,11,0.1);color:#d97706;',
-                                            'deleted' => 'background:rgba(239,68,68,0.1);color:#dc2626;',
+                                            'login'    => 'background:rgba(0,53,128,0.1);color:#003580;',
+                                            'logout'   => 'background:rgba(71,85,105,0.1);color:#475569;',
+                                            'created'  => 'background:rgba(56,189,248,0.1);color:#0284c7;',
+                                            'updated'  => 'background:rgba(245,158,11,0.1);color:#d97706;',
+                                            'deleted'  => 'background:rgba(239,68,68,0.1);color:#dc2626;',
                                             'exported' => 'background:rgba(139,92,246,0.1);color:#7c3aed;',
                                         ];
                                         $style = $actionColors[$log->action] ?? 'background:var(--surface-2);color:var(--text-secondary);';

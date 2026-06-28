@@ -1,6 +1,6 @@
 @props(['title', 'description' => null])
 <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-    <div>
+    <div class="border-l-4 pl-4" style="border-color:var(--color-primary);">
         <h1 class="text-2xl font-extrabold tracking-tight" style="color:var(--text-primary);">{{ $title }}</h1>
         @if($description)
             <p class="text-sm mt-1" style="color:var(--text-tertiary);">{{ $description }}</p>

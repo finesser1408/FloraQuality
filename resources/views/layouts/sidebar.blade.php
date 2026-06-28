@@ -1,35 +1,87 @@
-<!-- Sidebar -->
+<style>
+    /* ── PRAZ Sidebar Overrides ──────────────────────────────────── */
+    .sidebar {
+        background: #003580 !important;
+    }
+    .dark .sidebar {
+        background: #0a1628 !important;
+    }
+    .sidebar .nav-item {
+        color: rgba(255, 255, 255, 0.72);
+        border-left: 3px solid transparent;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+    .sidebar .nav-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.95);
+    }
+    .sidebar .nav-item.active {
+        background: rgba(201, 162, 39, 0.14) !important;
+        color: #ffffff !important;
+        border-left-color: #c9a227 !important;
+    }
+    .sidebar .nav-item.active .nav-icon {
+        color: #c9a227;
+        stroke: #c9a227;
+    }
+</style>
+
+<!-- ── Sidebar ──────────────────────────────────────────────────── -->
 <aside class="sidebar" :class="{ 'collapsed': !sidebarOpen, 'mobile-open': mobileOpen }">
 
-    <!-- Logo -->
-    <div class="flex items-center gap-3 px-4 py-5 border-b" style="border-color:var(--surface-border); min-height:var(--topbar-height); flex-shrink:0;">
-        <div class="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-white font-black text-sm"
-             style="background:linear-gradient(135deg,#059669,#34d399);">
-            F
+    <!-- PRAZ Branding -->
+    <div class="flex items-center gap-3 px-4 py-5 flex-shrink-0"
+         style="border-bottom: 1px solid rgba(255,255,255,0.08); min-height: var(--topbar-height);">
+
+        <!-- Shield / Government Icon -->
+        <div class="flex-shrink-0 w-8 h-8 rounded-md flex items-center justify-center"
+             style="background: rgba(201,162,39,0.15); border: 1.5px solid rgba(201,162,39,0.35);">
+            <svg style="width:17px;height:17px;" viewBox="0 0 24 24" fill="none"
+                 stroke="#c9a227" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/>
+                <path d="M9 12l2 2 4-4"/>
+            </svg>
         </div>
-        <span class="nav-label font-bold text-base tracking-tight" style="color:var(--text-primary);">floraQuality</span>
+
+        <!-- Brand Text -->
+        <div class="nav-label flex flex-col min-w-0 leading-none gap-0.5">
+            <span class="font-black tracking-widest" style="color:#c9a227; font-size:15px; letter-spacing:0.14em;">PRAZ</span>
+            <span class="font-medium" style="color:rgba(255,255,255,0.45); font-size:9px; letter-spacing:0.05em;">Flower Checklist System</span>
+        </div>
     </div>
 
     <!-- Navigation -->
-    <div class="sidebar-content py-3 flex-1 flex flex-col gap-1">
+    <div class="sidebar-content py-3 flex-1 flex flex-col gap-0.5 overflow-y-auto">
 
         @php
             $navItems = [
-                ['route' => 'dashboard',        'label' => 'Dashboard',   'icon' => 'grid'],
-                ['route' => 'checklists.create', 'label' => 'New Checklist','icon' => 'plus-circle'],
-                ['route' => 'checklists.index',  'label' => 'Inspections', 'icon' => 'clipboard'],
+                ['route' => 'dashboard',         'label' => 'Dashboard',     'icon' => 'grid'],
+                ['route' => 'checklists.create',  'label' => 'New Checklist', 'icon' => 'plus-circle'],
+                ['route' => 'checklists.index',   'label' => 'Inspections',   'icon' => 'clipboard'],
             ];
             if (Auth::user()->isSuperAdmin() || Auth::user()->isAdmin()) {
                 $navItems[] = ['route' => 'reports.index', 'label' => 'Reports', 'icon' => 'bar-chart'];
             }
             if (Auth::user()->isSuperAdmin()) {
-                $navItems[] = ['route' => 'users.index', 'label' => 'User Management', 'icon' => 'users'];
-                $navItems[] = ['route' => 'audit-logs.index', 'label' => 'Audit Logs', 'icon' => 'activity'];
+                $navItems[] = ['route' => 'users.index',      'label' => 'User Management', 'icon' => 'users'];
+                $navItems[] = ['route' => 'audit-logs.index', 'label' => 'Audit Logs',      'icon' => 'activity'];
             }
         @endphp
 
+        <!-- Section: Main Menu -->
+        <div class="nav-label px-4 pt-1 pb-2">
+            <span style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.28);">
+                Main Menu
+            </span>
+        </div>
+
         @foreach($navItems as $item)
-            @php $isActive = request()->routeIs($item['route'] === 'checklists.index' ? 'checklists.index' : ($item['route'] === 'checklists.create' ? 'checklists.create' : $item['route'])); @endphp
+            @php
+                $isActive = request()->routeIs(
+                    $item['route'] === 'checklists.index'  ? 'checklists.index'  :
+                   ($item['route'] === 'checklists.create' ? 'checklists.create' : $item['route'])
+                );
+            @endphp
             <a href="{{ route($item['route']) }}"
                class="nav-item {{ $isActive ? 'active' : '' }}"
                title="{{ $item['label'] }}">
@@ -53,10 +105,19 @@
         @endforeach
 
         @if(Auth::user()->isSuperAdmin() || Auth::user()->isAdmin())
-            <div class="nav-label px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest" style="color:var(--text-tertiary);">Admin</div>
-            <a href="{{ route('profile.edit') }}" class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}" title="Settings">
+            <!-- Section: Administration -->
+            <div class="nav-label px-4 pt-4 pb-2">
+                <span style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.28);">
+                    Administration
+                </span>
+            </div>
+
+            <a href="{{ route('profile.edit') }}"
+               class="nav-item {{ request()->routeIs('profile.*') ? 'active' : '' }}"
+               title="Settings">
                 <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <circle cx="12" cy="12" r="3"/>
                 </svg>
                 <span class="nav-label">Settings</span>
             </a>
@@ -64,21 +125,30 @@
     </div>
 
     <!-- User Footer -->
-    <div class="border-t p-3 flex-shrink-0" style="border-color:var(--surface-border);">
-        <div class="nav-item group" style="cursor:default;">
-            <div class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                 style="background:linear-gradient(135deg,#059669,#0891b2);">
+    <div class="flex-shrink-0 p-3" style="border-top: 1px solid rgba(255,255,255,0.08);">
+
+        <!-- User Info -->
+        <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg mb-1.5"
+             style="background: rgba(255,255,255,0.05);">
+            <div class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
+                 style="background: #c9a227; color: #002660;">
                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
             </div>
             <div class="nav-label flex-1 min-w-0">
-                <div class="text-sm font-semibold truncate" style="color:var(--text-primary);">{{ Auth::user()->name }}</div>
-                <div class="text-xs truncate" style="color:var(--text-tertiary);">{{ Auth::user()->email }}</div>
+                <div class="text-sm font-semibold truncate" style="color: rgba(255,255,255,0.9);">{{ Auth::user()->name }}</div>
+                <div class="text-xs truncate" style="color: rgba(255,255,255,0.4);">{{ Auth::user()->email }}</div>
             </div>
         </div>
 
+        <!-- Logout -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="nav-item w-full mt-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20" title="Log Out">
+            <button type="submit"
+                    class="nav-item w-full"
+                    style="color:rgba(255,255,255,0.5);"
+                    onmouseover="this.style.background='rgba(220,38,38,0.15)';this.style.color='#fca5a5';"
+                    onmouseout="this.style.background='';this.style.color='rgba(255,255,255,0.5)';"
+                    title="Log Out">
                 <svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                 </svg>

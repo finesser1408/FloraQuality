@@ -23,7 +23,7 @@
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3500)"
                  x-transition:enter="animate-fade-up" x-transition:leave="animate-fade-in"
                  class="p-4 rounded-xl flex items-center gap-3"
-                 style="background:rgba(5,150,105,0.08);border:1.5px solid rgba(5,150,105,0.2);color:#059669;">
+                 style="background:rgba(0,53,128,0.07);border:1.5px solid rgba(0,53,128,0.2);color:#003580;">
                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                 <span class="text-sm font-semibold">Profile information updated successfully.</span>
             </div>
@@ -33,7 +33,7 @@
             <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3500)"
                  x-transition:enter="animate-fade-up"
                  class="p-4 rounded-xl flex items-center gap-3"
-                 style="background:rgba(5,150,105,0.08);border:1.5px solid rgba(5,150,105,0.2);color:#059669;">
+                 style="background:rgba(0,53,128,0.07);border:1.5px solid rgba(0,53,128,0.2);color:#003580;">
                 <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                 <span class="text-sm font-semibold">Password updated successfully.</span>
             </div>
@@ -42,8 +42,8 @@
         {{-- Profile Information --}}
         <div class="card overflow-hidden">
             <div class="px-6 py-4 border-b flex items-center gap-3" style="border-color:var(--surface-border);">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(5,150,105,0.1);">
-                    <svg class="w-4.5 h-4.5" style="color:#059669;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(0,53,128,0.08);">
+                    <svg class="w-4.5 h-4.5" style="color:#003580;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 </div>
                 <div>
                     <h2 class="text-base font-bold" style="color:var(--text-primary);">Profile Information</h2>
@@ -75,7 +75,7 @@
                         <label for="phone_number" class="form-label">Phone Number <span class="text-xs font-normal" style="color:var(--text-tertiary);">(optional)</span></label>
                         <input id="phone_number" name="phone_number" type="tel"
                                value="{{ old('phone_number', $user->phone_number) }}"
-                               placeholder="+27 82 123 4567"
+                               placeholder="+263 77 123 4567"
                                class="form-input @error('phone_number') error @enderror">
                         @error('phone_number')
                             <p class="form-error mt-1.5">
@@ -91,7 +91,7 @@
                     <input id="email" name="email" type="email"
                            value="{{ old('email', $user->email) }}"
                            required autocomplete="username"
-                           placeholder="name@company.com"
+                           placeholder="name@praz.org.zw"
                            class="form-input @error('email') error @enderror">
                     @error('email')
                         <p class="form-error mt-1.5">
@@ -111,7 +111,8 @@
                     </div>
                     <div>
                         <label class="form-label">Account Status</label>
-                        <div class="form-input opacity-70 cursor-not-allowed {{ $user->status === 'active' ? 'text-emerald-600' : 'text-red-500' }}" style="background:var(--surface-1);">
+                        <div class="form-input opacity-70 cursor-not-allowed {{ $user->status === 'active' ? '' : 'text-red-500' }}"
+                             style="background:var(--surface-1);{{ $user->status === 'active' ? 'color:#003580;' : '' }}">
                             {{ ucfirst($user->status ?? 'active') }}
                         </div>
                     </div>
@@ -129,8 +130,8 @@
         {{-- Update Password --}}
         <div class="card overflow-hidden">
             <div class="px-6 py-4 border-b flex items-center gap-3" style="border-color:var(--surface-border);">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(8,145,178,0.1);">
-                    <svg class="w-4.5 h-4.5" style="color:#0891b2;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:rgba(0,53,128,0.08);">
+                    <svg class="w-4.5 h-4.5" style="color:#003580;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <div>
                     <h2 class="text-base font-bold" style="color:var(--text-primary);">Change Password</h2>

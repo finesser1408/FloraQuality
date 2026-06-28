@@ -8,10 +8,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'FloraQuality') }} — @yield('title', 'Dashboard')</title>
+    <title>{{ config('app.name', 'PRAZ Flower Checklist System') }} — @yield('title', 'Dashboard')</title>
+
+    {{-- Inter: professional government font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    <!-- Chart.js & Signature Pad -->
+    {{-- Chart.js & Signature Pad --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.2.0/dist/signature_pad.umd.min.js" defer></script>
 </head>
@@ -38,24 +44,41 @@
 
         <!-- Flash Messages -->
         <div class="px-8 pt-4" x-data>
+
+            {{-- Success: PRAZ Blue --}}
             @if(session('success'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,4500)"
                      x-transition:enter="animate-fade-up" x-transition:leave="animate-fade-in"
                      class="flex items-center gap-3 px-4 py-3 mb-4 rounded-xl text-sm font-medium border"
-                     style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);color:#059669;">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                     style="background:rgba(0,53,128,0.07); border-color:rgba(0,53,128,0.18); color:#003580;">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
                     {{ session('success') }}
-                    <button @click="show=false" class="ml-auto opacity-60 hover:opacity-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                    <button @click="show=false" class="ml-auto opacity-60 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
             @endif
+
+            {{-- Error: Danger Red --}}
             @if(session('error'))
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,5000)"
                      x-transition:enter="animate-fade-up"
                      class="flex items-center gap-3 px-4 py-3 mb-4 rounded-xl text-sm font-medium border"
-                     style="background:rgba(220,38,38,0.07);border-color:rgba(220,38,38,0.2);color:#dc2626;">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01"/></svg>
+                     style="background:rgba(220,38,38,0.07); border-color:rgba(220,38,38,0.2); color:#dc2626;">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01"/>
+                    </svg>
                     {{ session('error') }}
-                    <button @click="show=false" class="ml-auto opacity-60 hover:opacity-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                    <button @click="show=false" class="ml-auto opacity-60 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
             @endif
         </div>
@@ -77,22 +100,22 @@ function appShell() {
         mobileOpen: false,
 
         init() {
-            // Restore dark mode from localStorage
-            const saved = localStorage.getItem('flora_dark');
+            // Restore dark mode preference
+            const saved = localStorage.getItem('praz_dark');
             this.isDark = saved !== null ? saved === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
             // Restore sidebar state
-            const sb = localStorage.getItem('flora_sidebar');
+            const sb = localStorage.getItem('praz_sidebar');
             if (sb !== null) this.sidebarOpen = sb !== 'false';
 
-            // Watch for changes
-            this.$watch('isDark', v => localStorage.setItem('flora_dark', v));
-            this.$watch('sidebarOpen', v => localStorage.setItem('flora_sidebar', v));
+            // Persist changes
+            this.$watch('isDark', v => localStorage.setItem('praz_dark', v));
+            this.$watch('sidebarOpen', v => localStorage.setItem('praz_sidebar', v));
         },
 
-        toggleDark() { this.isDark = !this.isDark; },
+        toggleDark()    { this.isDark      = !this.isDark; },
         toggleSidebar() { this.sidebarOpen = !this.sidebarOpen; },
-        toggleMobile() { this.mobileOpen = !this.mobileOpen; }
+        toggleMobile()  { this.mobileOpen  = !this.mobileOpen; }
     }
 }
 </script>

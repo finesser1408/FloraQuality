@@ -7,7 +7,7 @@
                 Back to Inspections
             </a>
             <h1 class="text-2xl font-extrabold tracking-tight" style="color:var(--text-primary);">
-                {{ $this->checklistId ? 'Edit Inspection' : 'New Quality Checklist' }}
+                {{ $this->checklistId ? 'Edit Inspection' : 'New Flower Quality Inspection' }}
             </h1>
             <p class="text-sm mt-1" style="color:var(--text-tertiary);">Record flower condition, observations, and collect signatures.</p>
         </div>
@@ -152,7 +152,7 @@ function signaturePads() {
                 const sc = this.$refs.staffCanvas;
                 if (sc) {
                     sc.width = sc.offsetWidth;
-                    this.staffPad = new SignaturePad(sc, { penColor: '#10b981', minWidth: 1.5, maxWidth: 2.8 });
+                    this.staffPad = new SignaturePad(sc, { penColor: '#003580', minWidth: 1.5, maxWidth: 2.8 });
                     this.staffPad.addEventListener('endStroke', () => {
                         this.staffEmpty = this.staffPad.isEmpty();
                         @this.updateStaffSignature(this.staffPad.toDataURL());
@@ -161,7 +161,7 @@ function signaturePads() {
                 const suc = this.$refs.supplierCanvas;
                 if (suc) {
                     suc.width = suc.offsetWidth;
-                    this.supplierPad = new SignaturePad(suc, { penColor: '#10b981', minWidth: 1.5, maxWidth: 2.8 });
+                    this.supplierPad = new SignaturePad(suc, { penColor: '#003580', minWidth: 1.5, maxWidth: 2.8 });
                     this.supplierPad.addEventListener('endStroke', () => {
                         this.supplierEmpty = this.supplierPad.isEmpty();
                         @this.updateSupplierSignature(this.supplierPad.toDataURL());

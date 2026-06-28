@@ -56,7 +56,7 @@
 
     {{-- Loading bar --}}
     <div wire:loading class="w-full mb-4 h-0.5 rounded-full overflow-hidden" style="background:var(--surface-2);">
-        <div class="h-full rounded-full animate-pulse" style="width:60%;background:#059669;"></div>
+        <div class="h-full rounded-full animate-pulse" style="width:60%;background:#003580;"></div>
     </div>
 
     {{-- Table --}}
@@ -82,7 +82,7 @@
                                         <button wire:click="sortBy('{{ $field }}')" class="flex items-center gap-1.5 hover:opacity-70 transition-opacity">
                                             {{ $label }}
                                             @if($sortField === $field)
-                                                <svg class="w-3 h-3" style="color:#059669;" fill="currentColor" viewBox="0 0 20 20">
+                                                <svg class="w-3 h-3" style="color:#003580;" fill="currentColor" viewBox="0 0 20 20">
                                                     @if($sortDirection === 'asc')
                                                         <path d="M5.293 9.293a1 1 0 011.414 0L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
                                                     @else
@@ -110,7 +110,7 @@
                                 <td>
                                     <div class="flex items-center gap-2">
                                         <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white"
-                                             style="background:linear-gradient(135deg,#059669,#0891b2);">
+                                             style="background:linear-gradient(135deg,#003580,#1a52a0);">
                                             {{ strtoupper(substr($item->user->name ?? 'U', 0, 1)) }}
                                         </div>
                                         <span class="text-sm" style="color:var(--text-secondary);">{{ $item->user->name ?? 'N/A' }}</span>

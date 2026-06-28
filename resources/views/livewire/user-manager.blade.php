@@ -60,25 +60,38 @@
                                 <td>
                                     <div class="flex items-center gap-2.5">
                                         <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
-                                             style="background:linear-gradient(135deg,#059669,#0891b2);">
+                                             style="background:linear-gradient(135deg,#003580,#1a52a0);">
                                             {{ strtoupper(substr($user->name, 0, 1)) }}
                                         </div>
                                         <div>
                                             <span class="font-bold text-sm block" style="color:var(--text-primary);">{{ $user->name }}</span>
-                                            <span class="text-[10px] text-slate-400 font-medium">Created: {{ $user->created_at->format('d M Y') }}</span>
+                                            <span class="text-[10px] font-medium" style="color:var(--text-tertiary);">Created: {{ $user->created_at->format('d M Y') }}</span>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-sm font-semibold" style="color:var(--text-secondary);">{{ $user->email }}</td>
                                 <td class="text-sm" style="color:var(--text-secondary);">{{ $user->phone_number ?? '—' }}</td>
                                 <td>
-                                    <span class="badge" style="background:var(--surface-2);color:var(--text-secondary);">
-                                        {{ $user->role === 'super_admin' ? 'Super Admin' : ($user->role === 'admin' ? 'Admin' : 'Staff') }}
+                                    @php
+                                        $roleLabel = match($user->role) {
+                                            'super_admin' => 'Super Admin',
+                                            'admin'       => 'Admin',
+                                            default       => 'Staff',
+                                        };
+                                        $roleStyle = $user->role === 'super_admin'
+                                            ? 'background:rgba(0,53,128,0.12);color:#003580;border:1px solid rgba(0,53,128,0.2);font-weight:700;'
+                                            : ($user->role === 'admin'
+                                                ? 'background:rgba(0,53,128,0.07);color:#1a52a0;border:1px solid rgba(0,53,128,0.15);font-weight:600;'
+                                                : 'background:var(--surface-2);color:var(--text-secondary);');
+                                    @endphp
+                                    <span class="badge" style="{{ $roleStyle }}">
+                                        {{ $roleLabel }}
                                     </span>
                                 </td>
                                 <td>
                                     <button wire:click="toggleUserStatus({{ $user->id }})"
-                                            class="btn btn-xs {{ $user->status === 'active' ? 'btn-secondary text-emerald-600' : 'btn-secondary text-slate-400' }} border-none hover:bg-opacity-50">
+                                            class="btn btn-xs btn-secondary border-none hover:bg-opacity-50"
+                                            style="{{ $user->status === 'active' ? 'color:#003580;font-weight:600;' : 'color:var(--text-tertiary);' }}">
                                         {{ $user->status === 'active' ? '● Active' : '○ Inactive' }}
                                     </button>
                                 </td>
@@ -124,13 +137,13 @@
 
                     <div>
                         <label class="form-label">Email Address <span class="text-rose-500">*</span></label>
-                        <input type="email" wire:model.defer="email" class="form-input @error('email') error @enderror" placeholder="name@company.com">
+                        <input type="email" wire:model.defer="email" class="form-input @error('email') error @enderror" placeholder="name@praz.co.zw">
                         @error('email') <p class="form-error">{{ $message }}</p> @enderror
                     </div>
 
                     <div>
                         <label class="form-label">Phone Number <span class="text-slate-400 font-normal">(optional)</span></label>
-                        <input type="text" wire:model.defer="phone" class="form-input @error('phone') error @enderror" placeholder="+27 82 123 4567">
+                        <input type="text" wire:model.defer="phone" class="form-input @error('phone') error @enderror" placeholder="+263 77 123 4567">
                         @error('phone') <p class="form-error">{{ $message }}</p> @enderror
                     </div>
 
