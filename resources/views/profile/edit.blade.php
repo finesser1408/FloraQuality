@@ -12,8 +12,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                 </svg>
                 <div>
-                    <p class="text-sm font-bold text-amber-700 dark:text-amber-400">Password Change Required</p>
-                    <p class="text-sm text-amber-600 dark:text-amber-500 mt-0.5">For security, you must update your default password before continuing. Please scroll down and update your password now.</p>
+                    <p class="text-sm font-bold text-amber-700">Password Change Required</p>
+                    <p class="text-sm text-amber-600 mt-0.5">For security, you must update your default password before continuing. Please scroll down and update your password now.</p>
                 </div>
             </div>
         @endif

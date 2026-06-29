@@ -2,7 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
       x-data="appShell()"
       x-init="init()"
-      :class="{ 'dark': isDark }"
       class="h-full">
 <head>
     <meta charset="utf-8">
@@ -50,7 +49,7 @@
                 <div x-data="{ show: true }" x-show="show" x-init="setTimeout(()=>show=false,4500)"
                      x-transition:enter="animate-fade-up" x-transition:leave="animate-fade-in"
                      class="flex items-center gap-3 px-4 py-3 mb-4 rounded-xl text-sm font-medium border"
-                     style="background:rgba(0,53,128,0.07); border-color:rgba(0,53,128,0.18); color:#003580;">
+                     style="background:rgba(0,102,204,0.08); border-color:rgba(0,102,204,0.2); color:#0066cc;">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
                     </svg>
@@ -95,25 +94,18 @@
 <script>
 function appShell() {
     return {
-        isDark: false,
         sidebarOpen: true,
         mobileOpen: false,
 
         init() {
-            // Restore dark mode preference
-            const saved = localStorage.getItem('praz_dark');
-            this.isDark = saved !== null ? saved === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-
             // Restore sidebar state
             const sb = localStorage.getItem('praz_sidebar');
             if (sb !== null) this.sidebarOpen = sb !== 'false';
 
             // Persist changes
-            this.$watch('isDark', v => localStorage.setItem('praz_dark', v));
             this.$watch('sidebarOpen', v => localStorage.setItem('praz_sidebar', v));
         },
 
-        toggleDark()    { this.isDark      = !this.isDark; },
         toggleSidebar() { this.sidebarOpen = !this.sidebarOpen; },
         toggleMobile()  { this.mobileOpen  = !this.mobileOpen; }
     }

@@ -6,12 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Sign In — {{ config('app.name', 'PRAZ Flower Checklist System') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script>
-        if (localStorage.getItem('praz_dark') === 'true' ||
-            (!('praz_dark' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
 </head>
 <body class="h-full antialiased flex flex-col" style="background:var(--surface-1);">
 
@@ -138,7 +132,7 @@
                             <input id="remember_me"
                                    type="checkbox"
                                    name="remember"
-                                   class="h-4 w-4 rounded border-slate-300 dark:border-slate-700 focus:ring-offset-0 transition-colors"
+                                   class="h-4 w-4 rounded border-slate-300 focus:ring-offset-0 transition-colors"
                                    style="accent-color:#003580;">
                             <label for="remember_me" class="ms-2 text-xs font-semibold" style="color:var(--text-secondary);">
                                 Remember my session

@@ -192,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const labels = @json(array_keys($monthlyStats));
     const data   = @json(array_values($monthlyStats));
-    const isDark = document.documentElement.classList.contains('dark');
 
     const ctx = canvas.getContext('2d');
     const grad = ctx.createLinearGradient(0, 0, 0, 220);
@@ -211,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 borderColor: '#003580',
                 borderWidth: 2.5,
                 pointBackgroundColor: '#003580',
-                pointBorderColor: isDark ? '#1e293b' : '#ffffff',
+                pointBorderColor: '#ffffff',
                 pointBorderWidth: 2.5,
                 pointRadius: 4,
                 pointHoverRadius: 6,
@@ -224,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: isDark ? '#1e293b' : '#0f172a',
+                    backgroundColor: '#0f172a',
                     titleColor: '#94a3b8',
                     bodyColor: '#f1f5f9',
                     padding: 12,
@@ -236,23 +235,17 @@ document.addEventListener('DOMContentLoaded', function() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: { color: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)', drawBorder: false },
-                    ticks: { color: isDark ? '#475569' : '#94a3b8', font: { family: 'Plus Jakarta Sans', weight: '500', size: 12 }, stepSize: 1 },
+                    grid: { color: 'rgba(0,0,0,0.04)', drawBorder: false },
+                    ticks: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', weight: '500', size: 12 }, stepSize: 1 },
                     border: { display: false }
                 },
                 x: {
                     grid: { display: false },
-                    ticks: { color: isDark ? '#475569' : '#94a3b8', font: { family: 'Plus Jakarta Sans', weight: '500', size: 12 } },
+                    ticks: { color: '#94a3b8', font: { family: 'Plus Jakarta Sans', weight: '500', size: 12 } },
                     border: { display: false }
                 }
             }
         }
     });
-
-    // Dark mode toggle — uses praz_dark key
-    const stored = localStorage.getItem('praz_dark');
-    if (stored === '1') {
-        document.documentElement.classList.add('dark');
-    }
 });
 </script>

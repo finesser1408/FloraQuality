@@ -3,9 +3,6 @@
     .sidebar {
         background: #003580 !important;
     }
-    .dark .sidebar {
-        background: #0a1628 !important;
-    }
     .sidebar .nav-item {
         color: rgba(255, 255, 255, 0.72);
         border-left: 3px solid transparent;
@@ -16,13 +13,13 @@
         color: rgba(255, 255, 255, 0.95);
     }
     .sidebar .nav-item.active {
-        background: rgba(201, 162, 39, 0.14) !important;
+        background: rgba(34, 197, 94, 0.14) !important;
         color: #ffffff !important;
-        border-left-color: #c9a227 !important;
+        border-left-color: #22c55e !important;
     }
     .sidebar .nav-item.active .nav-icon {
-        color: #c9a227;
-        stroke: #c9a227;
+        color: #22c55e;
+        stroke: #22c55e;
     }
 </style>
 
@@ -35,9 +32,9 @@
 
         <!-- Shield / Government Icon -->
         <div class="flex-shrink-0 w-8 h-8 rounded-md flex items-center justify-center"
-             style="background: rgba(201,162,39,0.15); border: 1.5px solid rgba(201,162,39,0.35);">
+             style="background: rgba(34, 197, 94, 0.15); border: 1.5px solid rgba(34, 197, 94, 0.35);">
             <svg style="width:17px;height:17px;" viewBox="0 0 24 24" fill="none"
-                 stroke="#c9a227" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                 stroke="#22c55e" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7L12 2z"/>
                 <path d="M9 12l2 2 4-4"/>
             </svg>
@@ -45,7 +42,7 @@
 
         <!-- Brand Text -->
         <div class="nav-label flex flex-col min-w-0 leading-none gap-0.5">
-            <span class="font-black tracking-widest" style="color:#c9a227; font-size:15px; letter-spacing:0.14em;">PRAZ</span>
+            <span class="font-black tracking-widest" style="color:#22c55e; font-size:15px; letter-spacing:0.14em;">PRAZ</span>
             <span class="font-medium" style="color:rgba(255,255,255,0.45); font-size:9px; letter-spacing:0.05em;">Flower Checklist System</span>
         </div>
     </div>
@@ -131,7 +128,7 @@
         <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg mb-1.5"
              style="background: rgba(255,255,255,0.05);">
             <div class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold"
-                 style="background: #c9a227; color: #002660;">
+                 style="background: #22c55e; color: #002660;">
                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
             </div>
             <div class="nav-label flex-1 min-w-0">
